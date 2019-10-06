@@ -13,5 +13,5 @@ WINDOWS 7-64bit下使用DOSBOX + MASM
 <https://blog.csdn.net/u013761036/article/details/52186683>
 <https://blog.csdn.net/lane_l/article/details/21081327>
 
-MASM工具包在/msam.zip中会提供
+MASM工具包在/msam.rar中
 
