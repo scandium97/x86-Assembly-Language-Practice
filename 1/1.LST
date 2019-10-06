@@ -1,0 +1,120 @@
+Microsoft (R) Macro Assembler Version 5.10                  10/5/19 22:21:21
+                                                             Page     1-1
+
+
+				;汇编源程序 
+				;
+				PAGE 60, 132
+				
+				
+				;------------------------------
+				;交换2个DATA, MARCO
+				SWAP_DATA  MACRO  DAT1, DAT2
+						mov  BX,  DAT1
+						mov  AX,  DAT2
+						XOR  BX,  AX
+						XOR  AX,  BX
+						XOR  BX,  AX
+						mov  DAT1, BX
+						mov  DAT2, AX
+						ENDM
+				
+				;--------------------------------------
+						.MODEL SMALL
+						.STACK 64
+				;---------------------
+						.DATA
+				MyArray  WORD 600h,500h,400h
+1.ASM(23): error A2105: Expected: instruction, directive, or label
+				
+ = 0000				MyArrayLength = ($ - MyArray)
+1.ASM(25): error A2009: Symbol not defined: MYARRAY
+				
+				;--------------------
+						.CODE
+ 0000				MAIN	PROC FAR
+ 0000  B8 ---- R				mov  AX,  @DATA
+ 0003  8E D8					mov  DS,  AX
+						
+ 0005  E8 000C R				CALL DISPLAY
+				
+ 0008  B4 4C					mov AH, 4CH
+ 000A  CD 21					INT 21H
+ 000C				MAIN	ENDP
+				
+				
+				;------------------------------
+				;显示
+ 000C				DISPLAY PROC
+ 000C  B4 02					mov  ah, 02
+ 000E  8A 16 0000 R U				mov  dl, MyArrayLength
+1.ASM(44): error A2009: Symbol not defined: MYARRAYLENGTH
+ 0012  CD 21					int 21h
+ 0014  C3					RET
+				
+				
+ 0015				DISPLAY ENDP
+				;-------------------------------
+				;等待键盘输入的功能,并显示
+ 0015				INPORT_CHAR PROC
+ 0015  B4 01					mov  ah,  01
+ 0017  CD 21					int  21h
+						;;数据在al中，移动到dl中
+ 0019  B4 02					mov  ah,  02
+Microsoft (R) Macro Assembler Version 5.10                  10/5/19 22:21:21
+                                                             Page     1-2
+
+
+ 001B  8A D0					mov  dl, al
+ 001D  CD 21					int  21h
+ 001F  C3					RET
+ 0020				INPORT_CHAR  ENDP
+				;-------------------------------
+						END    MAIN
+
+Microsoft (R) Macro Assembler Version 5.10                  10/5/19 22:21:21
+                                                             Symbols-1
+
+
+Macros:
+
+		N a m e			Lines
+
+SWAP_DATA  . . . . . . . . . . .  	   7
+
+Segments and Groups:
+
+                N a m e         	Length	 Align	Combine Class
+
+DGROUP . . . . . . . . . . . . .  	GROUP
+  _DATA  . . . . . . . . . . . .  	0000	WORD	PUBLIC	'DATA'
+  STACK  . . . . . . . . . . . .  	0040	PARA	STACK	'STACK'
+_TEXT  . . . . . . . . . . . . .  	0020	WORD	PUBLIC	'CODE'
+
+Symbols:            
+
+                N a m e         	Type	 Value	 Attr
+
+DISPLAY  . . . . . . . . . . . .  	N PROC	000C	_TEXT	Length = 0009
+
+INPORT_CHAR  . . . . . . . . . .  	N PROC	0015	_TEXT	Length = 000B
+
+MAIN . . . . . . . . . . . . . .  	F PROC	0000	_TEXT	Length = 000C
+MYARRAYLENGTH  . . . . . . . . .  	NEAR	0000	_DATA
+
+@CODE  . . . . . . . . . . . . .  	TEXT  _TEXT		
+@CODESIZE  . . . . . . . . . . .  	TEXT  0		
+@CPU . . . . . . . . . . . . . .  	TEXT  0101h		
+@DATASIZE  . . . . . . . . . . .  	TEXT  0		
+@FILENAME  . . . . . . . . . . .  	TEXT  _1		
+@VERSION . . . . . . . . . . . .  	TEXT  510		
+
+
+     62 Source  Lines
+     62 Total   Lines
+     22 Symbols
+
+  47910 + 461381 Bytes symbol space free
+
+      0 Warning Errors
+      3 Severe  Errors
